@@ -1,0 +1,20 @@
+{
+  "name": "sudoku-solver",
+  "version": "1.0.0",
+  "description": "sudoku solver with js",
+  "main": "solver.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdrianGallano/sudoku-solver-js.git"
+  },
+  "author": "adrian gallano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AdrianGallano/sudoku-solver-js/issues"
+  },
+  "homepage": "https://github.com/AdrianGallano/sudoku-solver-js#readme"
+
+}
