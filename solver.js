@@ -1,132 +1,81 @@
-function sudokuSolver(problem){
-    let currNum  = 1;
-    const currAddress = [];
-    const historyOfAddress = [];
 
+function isValid(grid, currAddress, currNum){
+    let [row,col] = currAddress;
     
-    function horizontalChecker(currAddress, currNum){ // checks x
-        if(!problem[currAddress[0]].includes(currNum)){
-            return true;
-        }
+    // checks horizontal
+    if(grid[row].includes(currNum)){
         return false;
     }
-    
-    function verticalChecker(currAddress, currNum){ // checks y
-        if(!problem.map(x => x[currAddress[1]]).includes(currNum)){
-            return true;
-        }
-        return false
+
+    // checks vertical
+    if(grid.map(x => x[col]).includes(currNum)){
+        return false;
     }
 
-    function boxChecker(currAddress, currNum){
-        const currArr = []
-        if(currAddress[1] < 3){
-            if(currAddress[0] < 3){
-                for(let y = 0; y < 3; y++){
-                    for(let x = 0; x < 3; x++){
-                        currArr.push(problem[y][x])
-                    }
-                }
-            }
-            else if(currAddress[0] < 6){ // x
-                for(let y = 0; y < 3; y++){ // y = 0 
-                    for(let x = 3; x < 6; x++){ // x = 3
-                        console.log(problem[y])
-                        currArr.push(problem[y][x])
-                    }
-                }
-            }else{
-                for(let y = 0; y < 3; y++){
-                    for(let x = 6; x < 9; x++){
-                        currArr.push(problem[y][x])
-                    }
-                }
+    // checks box
+    let startRow = row - row % 3;
+    let startCol =  col - col % 3;
+    for(let y = 0; y < 3; y++){
+        for(let x = 0; x < 3; x++){
+            if(grid[startRow][startRow][startCol] == currNum){
+                return false
             }
         }
-        
-        
-        
-        else if(currAddress[1] < 6){
-            if(currAddress[0] < 6){
-                for(let y = 3; y < 6; y++){
-                    for(let x = 0; x < 3; x++){
-                        currArr.push(problem[y][x])
-                    }
-                }
-            }
-            else if(currAddress[0] < 6){
-                for(let y = 3; y < 6; y++){
-                    for(let x = 3; x < 6; x++){
-                        currArr.push(problem[y][x])
-                    }
-                }
-            }else{
-                for(let y = 3; y < 6; y++){
-                    for(let x = 6; x < 9; x++){
-                        currArr.push(problem[y][x])
-                    }
-                }
-            }
-        }
-        
-        
-        else{ 
-            if(currAddress[0] < 3){
-                for(let y = 6; y < 9; y++){
-                    for(let x = 0; x < 3; x++){
-                        currArr.push(problem[y][x])
-                    }
-                }
-            }
-            else if(currAddress[0] < 6){
-                for(let y = 6; y < 9; y++){
-                    for(let x = 3; x < 6; x++){
-                        currArr.push(problem[y][x])
-                    }
-                }
-            }else{
-                for(let y = 6; y < 9; y++){
-                    for(let x = 6; x < 9; x++){
-                        currArr.push(problem[y][x])
-                    }
-                }
-            }
-        }
-        return (!currArr.includes(currNum)) ? true : false;
     }
 
+    return true;
+}
 
-
-
-    // currAddress[0] = x
-    // currAddress[1] = y
-
+function isEmpty(grid){ // returns address [y,x]
+    for(let y = 0; y < grid.length; y++){
+        for(let x = 0; x < grid[y].length; x++){
+            if(grid[y][x] == 0){
+                return [y,x]
+            }
+        }
+    }
+    return null
 }
 
 
-sudokuSolver([        
-    [0,2,0,0,0,4,3,0,0],
-    [9,0,0,0,2,0,0,0,8], 
-    [0,0,0,6,0,9,0,5,0], 
-    [0,0,0,0,0,0,0,0,1], 
-    [0,7,2,5,0,3,6,8,0], 
-    [6,0,0,0,0,0,0,0,0], 
-    [0,8,0,2,0,5,0,0,0], 
-    [1,0,0,0,9,0,0,0,3], 
-    [0,0,9,8,0,0,0,6,0]])
+function solve(grid){
+    let find = isEmpty(grid)
+
+    if(!find){
+        return true;
+    }else{
+        let [row,col] = find;
+        for(let n = 1; n <= 9; n++){
+            if(isValid(grid, find, n)){
+                grid[row][col] = n
+
+                if(solve(grid)){
+                    return true;
+                }
+            }else{
+                grid[row][col] = 0
+            }
+        }
+    }
+    return false;
+}
 
 
-module.exports = sudokuSolver
 
-// 0,0,0
-// 0,7,2
-// 6,0,0
 
-//[3,2]
 
-// y < 6
-// x > 3
-// 0,0,4, 
-// 0,2,0, 
-// 6,0,9
 
+const grid = 
+[[0,2,0,0,0,4,3,0,0],
+[9,0,0,0,2,0,0,0,8], 
+[0,0,0,6,0,9,0,5,0], 
+[0,0,0,0,0,0,0,0,1], 
+[0,7,2,5,0,3,6,8,0], 
+[6,0,0,0,0,0,0,0,0], 
+[0,8,0,2,0,5,0,0,0], 
+[1,0,0,0,9,0,0,0,3], 
+[0,0,9,8,0,0,0,6,0]]
+
+let s = solve(grid)
+console.log(s)
+console.log(...grid)
