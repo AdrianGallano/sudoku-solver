@@ -8,8 +8,116 @@
   <link rel="icon" href="./static/images/sudoku.png">
   <link rel="stylesheet" href="./node_modules/normalize.css/normalize.css">
   <link rel="stylesheet" href="./static/style.css">
+  <script type="module" src="./solver.js" defer></script>
 </head>
 <body>
-  
+  <main>
+    <div id="grid">
+      <div class="row">
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+      </div>
+      <div class="row">
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+      </div>
+      <div class="row">
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+      </div>
+      <div class="row">
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+      </div>
+      <div class="row">
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+      </div>
+      <div class="row">
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+      </div>
+      <div class="row">
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+      </div>
+      <div class="row">
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+      </div>
+      <div class="row">
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+        <div class="col" data-state="neutral"></div>
+      </div>
+    </div>
+
+    <div class="options">
+      <button id="generate-btn">Generate Example</button>
+      <button id="solver-btn">Solve</button>
+    </div>
+  </main>
 </body>
 </html>
