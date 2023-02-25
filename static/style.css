@@ -14,3 +14,34 @@
   box-sizing: border-box;
   transition: all 200ms;
 }
+
+main{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#grid{
+  display: flex;
+  flex-direction: column;
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+.col{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 50px;
+  border: 1px solid black;
+  font-size: 3rem;
+
+}
+
+.row{
+  display: flex;
+}
+

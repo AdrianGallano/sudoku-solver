@@ -1,4 +1,4 @@
-const sudokuSolver = module.require('./solver')
+const sudokuSolver = require('./solver')
 
 
 describe("sudoku problems", () => {
