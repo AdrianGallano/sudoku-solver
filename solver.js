@@ -1,19 +1,16 @@
 const solveBtn = document.getElementById("solver-btn");
 const generateBtn = document.getElementById("generate-btn");
 const uiGrid = document.getElementById("grid");
-let solved = true;
-let grid;
+let gridGenerated;
+let currGrid;
 let randNum;
+let solved = true;
 
 fetch("./sudoku-problems.JSON")
   .then((res) => res.json())
   .then((data) => {
-    grid = Array.from(data);
+    gridGenerated = Array.from(data);
   });
-// the ideal visuals
-// iterate from numbers = green
-// finished = yellow
-// invalid = blue
 
 function isValid(grid, currAddress, currNum) {
   let [row, col] = currAddress;
@@ -74,7 +71,7 @@ function solve(grid) {
   return false;
 }
 
-function startGrid(grid) {
+function displayGrid(grid) {
   // start grid
   let delay = 0;
   for (let y = 0; y < grid.length; y++) {
@@ -84,14 +81,13 @@ function startGrid(grid) {
 
       let uiRow = uiCol.children[x];
 
-      uiRow.setAttribute("data-state", "given");
       setTimeout(() => (uiRow.textContent = grid[y][x]), delay);
       delay += 50;
     }
   }
 }
 
-function clearUiGrid() {
+function clearUiGrid(grid) {
   for (let y = 0; y < 9; y++) {
     let uiCol = uiGrid.children[y];
     for (let x = 0; x < 9; x++) {
@@ -102,18 +98,25 @@ function clearUiGrid() {
   }
 }
 
-generateBtn.addEventListener("click", () => {
-  if (!solved) return;
-
+function generateRandomGrid(grid) {
   randNum = Math.floor(Math.random() * grid.length);
-  solved = false;
+  return [...gridGenerated[randNum]];
+}
 
-  clearUiGrid();
-  startGrid(grid[randNum]);
+generateBtn.addEventListener("click", () => {
+  if(!solved) return;
+
+  currGrid = generateRandomGrid(gridGenerated);
+  clearUiGrid(currGrid);
+  displayGrid(currGrid);
+  solved = false;
 });
 
 solveBtn.addEventListener("click", () => {
-  solve(grid);
+  if(solved) return;
+
+  solve(currGrid);
+  displayGrid(currGrid)
   solved = true;
 });
 

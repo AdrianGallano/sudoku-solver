@@ -15,6 +15,10 @@
   transition: all 200ms;
 }
 
+body{
+  background-color: #000000;
+}
+
 main{
   display: flex;
   justify-content: center;
@@ -27,7 +31,10 @@ main{
   display: flex;
   flex-direction: column;
   border-collapse: collapse;
-  border: 1px solid black;
+  border: 2px solid white;
+  margin-bottom: 1rem;
+  
+  color: white;
 }
 
 .col{
@@ -36,7 +43,7 @@ main{
   align-items: center;
   height: 50px;
   width: 50px;
-  border: 1px solid black;
+  border: 2px solid white;
   font-size: 3rem;
 
 }
@@ -45,3 +52,24 @@ main{
   display: flex;
 }
 
+.options{
+  display: flex;
+  gap: 1rem;
+}
+
+
+.options button{
+  padding: 1rem 2rem;
+  font-size: 2rem;
+  border: none;
+  color: black;
+  background-color: white;
+  font-weight: bolder;
+}
+
+.options button:hover{
+
+  color: black;
+  background-color: white;
+  padding: 1.2rem 2.3rem;
+}
