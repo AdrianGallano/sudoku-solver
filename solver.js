@@ -5,6 +5,7 @@ let gridGenerated;
 let currGrid;
 let randNum;
 let solved = true;
+let delayDisplayData = 0;
 
 fetch("./sudoku-problems.JSON")
   .then((res) => res.json())
@@ -12,9 +13,10 @@ fetch("./sudoku-problems.JSON")
     gridGenerated = Array.from(data);
   });
 
-function isValid(grid, currAddress, currNum) {
+function isValid(grid, currAddress, currNum) { // validation
   let [row, col] = currAddress;
 
+  displaySingleData(row, col, currNum)
   // checks horizontal
   if (grid[row].includes(currNum)) {
     return false;
@@ -77,9 +79,9 @@ function displayGrid(grid) {
   for (let y = 0; y < grid.length; y++) {
     let uiCol = uiGrid.children[y];
     for (let x = 0; x < grid[y].length; x++) {
-      if (grid[y][x] == 0) continue;
-
       let uiRow = uiCol.children[x];
+
+      if (grid[y][x] == 0) continue;
 
       setTimeout(() => (uiRow.textContent = grid[y][x]), delay);
       delay += 50;
@@ -88,9 +90,9 @@ function displayGrid(grid) {
 }
 
 function clearUiGrid(grid) {
-  for (let y = 0; y < 9; y++) {
+  for (let y = 0; y < grid.length; y++) {
     let uiCol = uiGrid.children[y];
-    for (let x = 0; x < 9; x++) {
+    for (let x = 0; x < grid[y].length; x++) {
       let uiRow = uiCol.children[x];
       uiRow.setAttribute("data-state", "neutral");
       uiRow.textContent = "";
@@ -100,11 +102,19 @@ function clearUiGrid(grid) {
 
 function generateRandomGrid(grid) {
   randNum = Math.floor(Math.random() * grid.length);
-  return [...gridGenerated[randNum]];
+  return structuredClone(grid[randNum]);
+}
+
+function displaySingleData(row, col, n){
+  setTimeout(()=>{
+    uiGrid.children[row].children[col].textContent = n
+  },delayDisplayData)
+
+  delayDisplayData += 100
 }
 
 generateBtn.addEventListener("click", () => {
-  if(!solved) return;
+  if (!solved) return;
 
   currGrid = generateRandomGrid(gridGenerated);
   clearUiGrid(currGrid);
@@ -113,10 +123,10 @@ generateBtn.addEventListener("click", () => {
 });
 
 solveBtn.addEventListener("click", () => {
-  if(solved) return;
+  if (solved) return;
 
+  delayDisplayData = 0
   solve(currGrid);
-  displayGrid(currGrid)
   solved = true;
 });
 
