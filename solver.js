@@ -6,6 +6,7 @@ let currGrid;
 let randNum;
 let solved = true;
 let delayDisplayData = 0;
+let milisecondsIncrement = 0;
 
 fetch("./sudoku-problems.JSON")
   .then((res) => res.json())
@@ -13,10 +14,11 @@ fetch("./sudoku-problems.JSON")
     gridGenerated = Array.from(data);
   });
 
-function isValid(grid, currAddress, currNum) { // validation
+function isValid(grid, currAddress, currNum) {
+  // validation
   let [row, col] = currAddress;
 
-  displaySingleData(row, col, currNum)
+  displaySingleData(row, col, currNum);
   // checks horizontal
   if (grid[row].includes(currNum)) {
     return false;
@@ -66,6 +68,7 @@ function solve(grid) {
           return grid;
         }
       }
+      revertSingleData(row, col);
       grid[row][col] = 0;
     }
   }
@@ -81,9 +84,14 @@ function displayGrid(grid) {
     for (let x = 0; x < grid[y].length; x++) {
       let uiRow = uiCol.children[x];
 
-      if (grid[y][x] == 0) continue;
+      if (grid[y][x] == 0) {
+        uiRow.setAttribute("data-state", "in-process");
+        continue;
+      }
 
-      setTimeout(() => (uiRow.textContent = grid[y][x]), delay);
+      setTimeout(() => {
+        uiRow.textContent = grid[y][x];
+      }, delay);
       delay += 50;
     }
   }
@@ -105,12 +113,18 @@ function generateRandomGrid(grid) {
   return structuredClone(grid[randNum]);
 }
 
-function displaySingleData(row, col, n){
-  setTimeout(()=>{
-    uiGrid.children[row].children[col].textContent = n
-  },delayDisplayData)
+function displaySingleData(row, col, n) {
+  setTimeout(() => {
+    uiGrid.children[row].children[col].textContent = n;
+  }, delayDisplayData);
+  
+  delayDisplayData += milisecondsIncrement;
+}
 
-  delayDisplayData += 100
+function revertSingleData(row, col) {
+  setTimeout(() => {
+    uiGrid.children[row].children[col].textContent = "";
+  }, delayDisplayData);
 }
 
 generateBtn.addEventListener("click", () => {
@@ -125,9 +139,14 @@ generateBtn.addEventListener("click", () => {
 solveBtn.addEventListener("click", () => {
   if (solved) return;
 
-  delayDisplayData = 0
-  solve(currGrid);
-  solved = true;
+  solveBtn.disabled = true
+  solve(currGrid)
+  setTimeout(()=>{
+    solved = true
+    solveBtn.disabled = false
+  },delayDisplayData)
+  delayDisplayData = 0;
+
 });
 
 // module.exports = solve;
