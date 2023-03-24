@@ -6,7 +6,7 @@ let currGrid;
 let randNum;
 let solved = true;
 let delayDisplayData = 0;
-let milisecondsIncrement = 0;
+let milisecondsIncrement = 100;
 
 fetch("./sudoku-problems.JSON")
   .then((res) => res.json())
